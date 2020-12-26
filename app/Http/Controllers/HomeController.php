@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Category;
 
 class HomeController extends Controller
 {
