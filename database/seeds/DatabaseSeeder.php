@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClansSeeder::class);
         $this->call(NivelsSeeder::class);
         $this->call(ClientsSeeder::class);
+        $this->call(PermissionSeeder::class);
+        $this->call(UsersSeeder::class);
     }
 }

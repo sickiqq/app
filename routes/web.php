@@ -17,6 +17,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
+
+Route::get('login', 'Auth\LoginController@showLoginForm')->middleware('guest')->name('login');
+Route::post('login', 'Auth\LoginController@login')->middleware('guest');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::prefix('users')->name('users.')->middleware('auth')->group(function () {
+    Route::prefix('password')->name('password.')->group(function () {
+        Route::get('/', 'UserController@showPasswordForm')->name('show_form');
+        Route::put('/', 'UserController@updatePassword')->name('update');
+        Route::get('/{user}/restore', 'UserController@passwordRestore')->name('restore');
+        Route::put('/{user}', 'UserController@passwordStore')->name('store');
+    });
+    Route::get('/', 'UserController@index')->name('index')->middleware('can:administrador');
+    Route::get('/create', 'UserController@create')->name('create')->middleware('can:administrador');
+    Route::post('/', 'UserController@store')->name('store')->middleware('can:administrador');
+    Route::get('/{user}/edit', 'UserController@edit')->name('edit')->middleware('can:administrador');
+    Route::put('/{user}', 'UserController@update')->name('update')->middleware('can:administrador');
+    Route::delete('/{user}', 'UserController@destroy')->name('destroy')->middleware('can:administrador');
+});
+
+Route::prefix('parameters')->as('parameters.')->middleware('auth')->group(function(){
+    Route::get('/', 'Parameters\ParameterController@index')->name('index');
+    Route::resource('permissions','Parameters\PermissionController');
+});
+
+Route::resource('categories','parameters\CategoryController')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');
