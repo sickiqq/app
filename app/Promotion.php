@@ -16,12 +16,16 @@ class Promotion extends Model
       'id','branch_office_id','name','description','price'
   ];
 
+  public function branchOffice() {
+      return $this->belongsTo('\App\branchOffice');
+  }
+
   public function saleDetail() {
       return $this->belongsTo('\App\SaleDetail');
   }
 
   public function PromotionItems() {
-      return $this->belongsTo('\App\PromotionItem');
+      return $this->hasMany('\App\PromotionItem');
   }
 
   use SoftDeletes;
