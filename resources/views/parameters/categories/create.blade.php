@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Nueva Fecha de corte')
+@section('title', 'Nueva Categoría')
 
 @section('content')
 
-<h3 class="mb-3">Nueva Fecha de corte</h3>
+<h3 class="mb-3">Nueva Categoría</h3>
 
 <form method="POST" class="form-horizontal" action="{{ route('categories.store') }}">
     @csrf

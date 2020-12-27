@@ -9,5 +9,15 @@
         <a class="nav-link" href="{{ route('categories.index') }}">
             <i class="fas fa-user"></i> Categorías</a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('subcategories.index') }}">
+            <i class="fas fa-user"></i> Subcategorías</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('products.index') }}">
+            <i class="fas fa-user"></i> Productos</a>
+    </li>
 </ul>
 @endcan

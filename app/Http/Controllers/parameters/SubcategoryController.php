@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Parameters;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Category;
 use App\Subcategory;
 
 class SubcategoryController extends Controller
@@ -14,8 +16,8 @@ class SubcategoryController extends Controller
    */
   public function index(Request $request)
   {
-
-      // return view('parameters.users.index', compact('users', 'request', 'query'));
+      $subcategories = Subcategory::orderBy('id','ASC')->get();
+      return view('parameters.subcategories.index', compact('request', 'subcategories'));
   }
 
   /**
@@ -25,7 +27,8 @@ class SubcategoryController extends Controller
    */
   public function create()
   {
-
+    $categories = Category::orderBy('name','ASC')->get();
+    return view('parameters.subcategories.create', compact('categories'));
   }
 
   /**
@@ -36,7 +39,11 @@ class SubcategoryController extends Controller
    */
   public function store(Request $request)
   {
+      $subcategory = new Subcategory($request->All());
+      $subcategory->save();
 
+      session()->flash('info', 'La categoría ha sido creada.');
+      return redirect()->route('subcategories.index');
   }
 
   /**
@@ -45,7 +52,7 @@ class SubcategoryController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function show(User $user)
+  public function show(Subcategory $subcategory)
   {
       //
   }
@@ -56,9 +63,10 @@ class SubcategoryController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function edit(User $user)
+  public function edit(Subcategory $subcategory)
   {
-
+    $categories = Category::orderBy('name','ASC')->get();
+    return view('parameters.subcategories.edit', compact('subcategory','categories'));
   }
 
   /**
@@ -68,9 +76,13 @@ class SubcategoryController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, User $user)
+  public function update(Request $request, Subcategory $subcategory)
   {
+    $subcategory->fill($request->all());
+    $subcategory->save();
 
+    session()->flash('info', 'La categoría ha sido editada.');
+    return redirect()->route('subcategories.index');
   }
 
   /**
@@ -79,8 +91,10 @@ class SubcategoryController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function destroy(User $user)
+  public function destroy(Subcategory $subcategory)
   {
-      //
+    $subcategory->delete();
+    session()->flash('success', 'La categoría ha sido eliminada');
+    return redirect()->route('subcategories.index');
   }
 }

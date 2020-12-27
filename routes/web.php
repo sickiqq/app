@@ -44,5 +44,7 @@ Route::prefix('parameters')->as('parameters.')->middleware('auth')->group(functi
 });
 
 Route::resource('categories','parameters\CategoryController')->middleware('auth');
+Route::resource('subcategories','parameters\SubcategoryController')->middleware('auth');
+Route::resource('products','parameters\ProductController')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');

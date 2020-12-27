@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Parameters;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Product;
+use App\Subcategory;
+use App\branchOffice;
 
 class ProductController extends Controller
 {
@@ -13,8 +17,8 @@ class ProductController extends Controller
    */
   public function index(Request $request)
   {
-
-      // return view('parameters.users.index', compact('users', 'request', 'query'));
+      $products = Product::orderBy('id','ASC')->get();
+      return view('parameters.products.index', compact('request', 'products'));
   }
 
   /**
@@ -24,7 +28,9 @@ class ProductController extends Controller
    */
   public function create()
   {
-
+    $subcategories = Subcategory::orderBy('name','ASC')->get();
+    $branchOffices = branchOffice::orderBy('name','ASC')->get();
+    return view('parameters.products.create', compact('subcategories','branchOffices'));
   }
 
   /**
@@ -35,7 +41,11 @@ class ProductController extends Controller
    */
   public function store(Request $request)
   {
+      $product = new Product($request->All());
+      $product->save();
 
+      session()->flash('info', 'La categoría ha sido creada.');
+      return redirect()->route('products.index');
   }
 
   /**
@@ -44,7 +54,7 @@ class ProductController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function show(User $user)
+  public function show(Product $product)
   {
       //
   }
@@ -55,9 +65,11 @@ class ProductController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function edit(User $user)
+  public function edit(Product $product)
   {
-
+    $subcategories = Subcategory::orderBy('name','ASC')->get();
+    $branchOffices = branchOffice::orderBy('name','ASC')->get();
+    return view('parameters.products.edit', compact('product','subcategories','branchOffices'));
   }
 
   /**
@@ -67,9 +79,13 @@ class ProductController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, User $user)
+  public function update(Request $request, Product $product)
   {
+    $product->fill($request->all());
+    $product->save();
 
+    session()->flash('info', 'La categoría ha sido editada.');
+    return redirect()->route('products.index');
   }
 
   /**
@@ -78,8 +94,10 @@ class ProductController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function destroy(User $user)
+  public function destroy(Product $product)
   {
-      //
+    $product->delete();
+    session()->flash('success', 'La categoría ha sido eliminada');
+    return redirect()->route('products.index');
   }
 }
