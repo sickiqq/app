@@ -24,7 +24,7 @@ class Promotion extends Model
       return $this->belongsTo('\App\SaleDetail');
   }
 
-  public function PromotionItems() {
+  public function promotionItems() {
       return $this->hasMany('\App\PromotionItem');
   }
 

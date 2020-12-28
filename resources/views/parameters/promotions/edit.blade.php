@@ -46,6 +46,44 @@
 
 </form>
 
+<hr>
+
+<table class="table table-sm table-borderer">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Sucursal</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Valor</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( $promotion->promotionItems as $promotionItem )
+        <tr>
+            <td>{{ $promotionItem->id }}</td>
+            <td>{{ $promotionItem->product->name }}</td>
+            <td>{{ $promotionItem->amount }}</td>
+            <td>{{ $promotionItem->price }}</td>
+            <td>
+              <a href="{{ route('promotionItems.edit', $promotionItem) }}"
+      					class="btn btn-sm btn-outline-secondary">
+      					<span class="fas fa-edit" aria-hidden="true"></span>
+      				</a>
+      				<form method="POST" action="{{ route('promotionItems.destroy', $promotionItem) }}" class="d-inline">
+      					@csrf
+      					@method('DELETE')
+      					<button type="submit" class="btn btn-outline-secondary btn-sm" onclick="return confirm('¿Está seguro de eliminar la información?');">
+      						<span class="fas fa-trash-alt" aria-hidden="true"></span>
+      					</button>
+      				</form>
+      			</td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
 @endsection
 
 @section('custom_js')

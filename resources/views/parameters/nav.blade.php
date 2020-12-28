@@ -7,22 +7,22 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('categories.index') }}">
-            <i class="fas fa-user"></i> Categorías</a>
+            <i class="fas fa-calendar-day"></i> Categorías</a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('subcategories.index') }}">
-            <i class="fas fa-user"></i> Subcategorías</a>
+            <i class="fas fa-calendar-minus"></i> Subcategorías</a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('products.index') }}">
-            <i class="fas fa-user"></i> Productos</a>
+            <i class="fab fa-product-hunt"></i> Productos</a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('promotions.index') }}">
-            <i class="fas fa-user"></i> Promociones</a>
+            <i class="fas fa-hand-holding-usd"></i> Promociones</a>
     </li>
 </ul>
 @endcan
