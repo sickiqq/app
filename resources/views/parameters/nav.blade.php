@@ -24,5 +24,25 @@
         <a class="nav-link" href="{{ route('promotions.index') }}">
             <i class="fas fa-hand-holding-usd"></i> Promociones</a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('companies.index') }}">
+            <i class="far fa-building"></i> Empresas</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('branchoffices.index') }}">
+            <i class="fas fa-archway"></i> Sucursales</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('tables.index') }}">
+            <i class="fas fa-box"></i> Mesas</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('waiters.index') }}">
+            <i class="fas fa-user-edit"></i> Meseros</a>
+    </li>
 </ul>
 @endcan

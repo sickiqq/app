@@ -48,5 +48,9 @@ Route::resource('subcategories','parameters\SubcategoryController')->middleware(
 Route::resource('products','parameters\ProductController')->middleware('auth');
 Route::resource('promotions','parameters\PromotionController')->middleware('auth');
 Route::resource('promotionItems','parameters\PromotionItemController')->middleware('auth');
+Route::resource('waiters','parameters\WaiterController')->middleware('auth');
+Route::resource('companies','parameters\CompanyController')->middleware('auth');
+Route::resource('branchoffices','parameters\BranchOfficeController')->middleware('auth');
+Route::resource('tables','parameters\TableController')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');

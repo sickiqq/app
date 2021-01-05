@@ -1,42 +1,36 @@
 @extends('layouts.app')
 
-@section('title', 'Listado de Promociones')
+@section('title', 'Listado de Meseros')
 
 @section('content')
 
 @include('parameters.nav')
 
-<h3 class="mb-3">Listado de Promociones</h3>
+<h3 class="mb-3">Listado de Meseros</h3>
 
-<a class="btn btn-primary mb-3" href="{{ route('promotions.create') }}">
-    <i class="fas fa-plus"></i> Agregar nueva
+<a class="btn btn-primary mb-3" href="{{ route('waiters.create') }}">
+    <i class="fas fa-plus"></i> Agregar nuevo
 </a>
 
 <table class="table table-sm table-borderer">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Sucursal</th>
             <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Valor</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach( $promotions as $promotion )
+        @foreach( $waiters as $waiter )
         <tr>
-            <td>{{ $promotion->id }}</td>
-            <td>{{ $promotion->branchOffice->name }}</td>
-            <td>{{ $promotion->name }}</td>
-            <td>{{ $promotion->description }}</td>
-            <td>{{ $promotion->price }}</td>
+            <td>{{ $waiter->id }}</td>
+            <td>{{ $waiter->name }}</td>
             <td>
-      				<a href="{{ route('promotions.edit', $promotion) }}"
+      				<a href="{{ route('waiters.edit', $waiter) }}"
       					class="btn btn-sm btn-outline-secondary">
       					<span class="fas fa-edit" aria-hidden="true"></span>
       				</a>
-      				<form method="POST" action="{{ route('promotions.destroy', $promotion) }}" class="d-inline">
+      				<form method="POST" action="{{ route('waiters.destroy', $waiter) }}" class="d-inline">
       					@csrf
       					@method('DELETE')
       					<button type="submit" class="btn btn-outline-secondary btn-sm" onclick="return confirm('¿Está seguro de eliminar la información?');">
