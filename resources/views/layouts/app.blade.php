@@ -38,9 +38,16 @@
                     <ul class="navbar-nav mr-auto">
 
                       <li class="nav-item">
-                          <a class="nav-link" href="#">
-                              <i class="fas fa-head-side-mask"></i>
-                              Opción 1
+                          <a class="nav-link" href="{{ route('scan.index') }}">
+                              <i class="fas fa-qrcode"></i>
+                              Lectura QR
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a class="nav-link" href="{{ route('register.index') }}">
+                              <i class="fas fa-user-plus"></i>
+                              Registrarse
                           </a>
                       </li>
 

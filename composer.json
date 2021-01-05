@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
         "owen-it/laravel-auditing": "^10.0",
+        "simplesoftwareio/simple-qrcode": "~4",
         "spatie/laravel-permission": "^3.11"
     },
     "require-dev": {
