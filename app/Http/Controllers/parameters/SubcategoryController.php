@@ -42,7 +42,7 @@ class SubcategoryController extends Controller
       $subcategory = new Subcategory($request->All());
       $subcategory->save();
 
-      session()->flash('info', 'La categoría ha sido creada.');
+      session()->flash('success', 'La categoría ha sido creada.');
       return redirect()->route('subcategories.index');
   }
 
@@ -81,7 +81,7 @@ class SubcategoryController extends Controller
     $subcategory->fill($request->all());
     $subcategory->save();
 
-    session()->flash('info', 'La categoría ha sido editada.');
+    session()->flash('success', 'La categoría ha sido editada.');
     return redirect()->route('subcategories.index');
   }
 

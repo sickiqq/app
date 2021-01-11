@@ -29,6 +29,29 @@
         </fieldset>
     </div>
 
+    <div class="row">
+
+      <fieldset class="form-group col">
+          <label for="for_name">País</label>
+          <select class="form-control selectpicker" data-live-search="true" name="country" required="" data-size="5" value="{{$branchoffice->country}}">
+              <option value="Chile">Chile</option>
+          </select>
+      </fieldset>
+
+      <fieldset class="form-group col">
+          <label for="for_name">Ciudad</label>
+          <select class="form-control selectpicker" data-live-search="true" name="city" required="" data-size="5" value="{{$branchoffice->city}}">
+              <option value="Iquique">Iquique</option>
+          </select>
+      </fieldset>
+
+      <fieldset class="form-group col">
+          <label for="for_address">Dirección</label>
+          <input type="text" class="form-control" id="for_address" placeholder="" name="address" required value="{{$branchoffice->address}}">
+      </fieldset>
+
+    </div>
+
     <button type="submit" class="btn btn-primary">Guardar</button>
 
 </form>

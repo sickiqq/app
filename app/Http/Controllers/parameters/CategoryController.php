@@ -40,7 +40,7 @@ class CategoryController extends Controller
       $category = new Category($request->All());
       $category->save();
 
-      session()->flash('info', 'La categoría ha sido creada.');
+      session()->flash('success', 'La categoría ha sido creada.');
       return redirect()->route('categories.index');
   }
 
@@ -78,7 +78,7 @@ class CategoryController extends Controller
     $category->fill($request->all());
     $category->save();
 
-    session()->flash('info', 'La categoría ha sido editada.');
+    session()->flash('success', 'La categoría ha sido editada.');
     return redirect()->route('categories.index');
   }
 

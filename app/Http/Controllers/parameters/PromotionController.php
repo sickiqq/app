@@ -42,7 +42,7 @@ class PromotionController extends Controller
       $promotion = new Promotion($request->All());
       $promotion->save();
 
-      session()->flash('info', 'La promoción ha sido creada.');
+      session()->flash('success', 'La promoción ha sido creada.');
       return redirect()->route('promotions.index');
   }
 
@@ -81,7 +81,7 @@ class PromotionController extends Controller
     $promotion->fill($request->all());
     $promotion->save();
 
-    session()->flash('info', 'La promoción ha sido editada.');
+    session()->flash('success', 'La promoción ha sido editada.');
     return redirect()->route('promotions.index');
   }
 

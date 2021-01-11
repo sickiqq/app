@@ -26,11 +26,11 @@
             <td>{{ $company->id }}</td>
             <td>{{ $company->name }}</td>
             <td>
-      				<a href="{{ route('waiters.edit', $company) }}"
+      				<a href="{{ route('companies.edit', $company) }}"
       					class="btn btn-sm btn-outline-secondary">
       					<span class="fas fa-edit" aria-hidden="true"></span>
       				</a>
-      				<form method="POST" action="{{ route('waiters.destroy', $company) }}" class="d-inline">
+      				<form method="POST" action="{{ route('companies.destroy', $company) }}" class="d-inline">
       					@csrf
       					@method('DELETE')
       					<button type="submit" class="btn btn-outline-secondary btn-sm" onclick="return confirm('¿Está seguro de eliminar la información?');">

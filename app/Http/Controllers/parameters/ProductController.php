@@ -44,7 +44,7 @@ class ProductController extends Controller
       $product = new Product($request->All());
       $product->save();
 
-      session()->flash('info', 'La categoría ha sido creada.');
+      session()->flash('success', 'La categoría ha sido creada.');
       return redirect()->route('products.index');
   }
 
@@ -84,7 +84,7 @@ class ProductController extends Controller
     $product->fill($request->all());
     $product->save();
 
-    session()->flash('info', 'La categoría ha sido editada.');
+    session()->flash('success', 'La categoría ha sido editada.');
     return redirect()->route('products.index');
   }
 

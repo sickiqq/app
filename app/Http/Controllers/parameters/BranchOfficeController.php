@@ -27,8 +27,8 @@ class BranchOfficeController extends Controller
      */
      public function create()
      {
-       $branchOffices = BranchOffice::orderBy('name','ASC')->get();
-       return view('parameters.branchoffices.create', compact('branchOffices'));
+       $companies = Company::orderBy('name','ASC')->get();
+       return view('parameters.branchoffices.create', compact('companies'));
      }
 
      /**
@@ -42,7 +42,7 @@ class BranchOfficeController extends Controller
          $branchOffice = new BranchOffice($request->All());
          $branchOffice->save();
 
-         session()->flash('info', 'La sucursal ha sido creada.');
+         session()->flash('success', 'La sucursal ha sido creada.');
          return redirect()->route('branchoffices.index');
      }
 
@@ -81,7 +81,7 @@ class BranchOfficeController extends Controller
        $branchoffice->fill($request->all());
        $branchoffice->save();
 
-       session()->flash('info', 'La sucursal ha sido editada.');
+       session()->flash('success', 'La sucursal ha sido editada.');
        return redirect()->route('branchoffices.index');
      }
 

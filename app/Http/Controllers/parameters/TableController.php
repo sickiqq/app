@@ -27,8 +27,8 @@ class TableController extends Controller
       */
      public function create()
      {
-       $tables = Table::orderBy('name','ASC')->get();
-       return view('parameters.tables.create', compact('tables'));
+       $branchOffices = BranchOffice::orderBy('name','ASC')->get();
+       return view('parameters.tables.create', compact('branchOffices'));
      }
 
      /**
@@ -42,7 +42,7 @@ class TableController extends Controller
          $table = new Table($request->All());
          $table->save();
 
-         session()->flash('info', 'La mesa ha sido creada.');
+         session()->flash('success', 'La mesa ha sido creada.');
          return redirect()->route('tables.index');
      }
 
@@ -81,7 +81,7 @@ class TableController extends Controller
        $table->fill($request->all());
        $table->save();
 
-       session()->flash('info', 'La mesa ha sido editada.');
+       session()->flash('success', 'La mesa ha sido editada.');
        return redirect()->route('tables.index');
      }
 

@@ -97,4 +97,10 @@ class ScanController extends Controller
     {
         //
     }
+
+    public function add_to_cart(Request $request)
+    {
+        session()->flash('info', 'Se agregó el producto al carrito de compras.');
+        return redirect()->back();
+    }
 }

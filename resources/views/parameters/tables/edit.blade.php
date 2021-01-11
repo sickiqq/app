@@ -24,8 +24,8 @@
         </fieldset>
 
         <fieldset class="form-group col">
-            <label for="for_name">Nombre</label>
-            <input type="text" class="form-control" id="for_name" placeholder="" name="identifier" required value="{{$table->identifier}}">
+            <label for="for_name">Identificador</label>
+            <input type="text" class="form-control" id="for_identifier" placeholder="" name="identifier" required value="{{$table->identifier}}">
         </fieldset>
     </div>
 

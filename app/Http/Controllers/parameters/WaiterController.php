@@ -40,7 +40,7 @@ class WaiterController extends Controller
       $waiter = new Waiter($request->All());
       $waiter->save();
 
-      session()->flash('info', 'El mesero ha sido creado.');
+      session()->flash('success', 'El mesero ha sido creado.');
       return redirect()->route('waiters.index');
     }
 
@@ -78,7 +78,7 @@ class WaiterController extends Controller
       $waiter->fill($request->all());
       $waiter->save();
 
-      session()->flash('info', 'El mesero ha sido editado.');
+      session()->flash('success', 'El mesero ha sido editado.');
       return redirect()->route('waiters.index');
     }
 

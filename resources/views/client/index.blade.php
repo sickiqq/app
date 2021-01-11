@@ -45,10 +45,10 @@
           <tbody>
             @foreach($subcategories as $key3 => $product)
               <tr>
-                <th style="width: 20%"></th>
-                <th>{{$key3}}</th>
+                <th style="width: 30%"></th>
+                <td style="width: 40%"><b>{{$key3}}</b><br>{{$product->description}}</td>
                 <td style="width: 20%">{{$product->price}}</td>
-                <td><i class="fas fa-plus"></i></td>
+                <td> <a href="{{ route('scan.add_to_cart') }}"><i class="fas fa-plus"></i></a></td>
               </tr>
             @endforeach
           </tbody>

@@ -53,6 +53,7 @@ Route::resource('companies','parameters\CompanyController')->middleware('auth');
 Route::resource('branchoffices','parameters\BranchOfficeController')->middleware('auth');
 Route::resource('tables','parameters\TableController')->middleware('auth');
 
+Route::get('scan/add_to_cart','client\ScanController@add_to_cart')->name('scan.add_to_cart')->middleware('auth');
 Route::resource('scan','client\ScanController')->middleware('auth');
 Route::resource('register','client\RegisterController')->middleware('auth');
 
