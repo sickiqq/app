@@ -22,7 +22,7 @@ class CartController extends Controller
      */
     public function index()
     {
-      dd(\Request::ip());
+      // dd(\Request::ip());
       $table_id = 1;
       $table = Table::find($table_id);
       $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
