@@ -19,7 +19,13 @@
 
   <fieldset class="form-group col">
     <div class="visible-print text-center">
-        {!! QrCode::size(100)->generate(route('scan.read_qr',['table_id'=>3])); !!}
+        {!! QrCode::size(100)->generate(route('scan.read_qr',['table_id'=>5])); !!}
+    </div>
+  </fieldset>
+
+  <fieldset class="form-group col">
+    <div class="visible-print text-center">
+        {!! QrCode::size(100)->generate(route('scan.read_qr',['table_id'=>10])); !!}
     </div>
   </fieldset>
 </div>
