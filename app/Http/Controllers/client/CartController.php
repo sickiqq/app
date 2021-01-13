@@ -22,8 +22,7 @@ class CartController extends Controller
      */
     public function index()
     {
-      // dd(\Request::ip());
-      $table_id = 1;
+      $table_id = Session::get('table_id');;
       $table = Table::find($table_id);
       $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
       $promotions = Promotion::where('branch_office_id',$table->branchOffice->id)->get();

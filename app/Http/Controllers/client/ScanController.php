@@ -90,7 +90,7 @@ class ScanController extends Controller
 
     public function read_qr($table_id)
     {
-      $table_id = $table_id;
+      Session::set('table_id', $table_id);
       $table = Table::find($table_id);
       $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
       $promotions = Promotion::where('branch_office_id',$table->branchOffice->id)->get();
