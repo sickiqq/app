@@ -12,6 +12,7 @@ use App\Product;
 use App\Promotion;
 use App\Category;
 use Cart;
+use Session;
 
 class CartController extends Controller
 {
@@ -22,7 +23,7 @@ class CartController extends Controller
      */
     public function index()
     {
-      $table_id = Session::get('table_id');;
+      $table_id = session()->get('table_id');
       $table = Table::find($table_id);
       $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
       $promotions = Promotion::where('branch_office_id',$table->branchOffice->id)->get();

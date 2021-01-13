@@ -9,6 +9,7 @@ use App\Table;
 use App\Product;
 use App\Promotion;
 use App\Category;
+use Session;
 
 class ScanController extends Controller
 {
@@ -90,7 +91,7 @@ class ScanController extends Controller
 
     public function read_qr($table_id)
     {
-      Session::set('table_id', $table_id);
+      session()->put('table_id', $table_id);
       $table = Table::find($table_id);
       $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
       $promotions = Promotion::where('branch_office_id',$table->branchOffice->id)->get();
