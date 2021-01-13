@@ -50,7 +50,7 @@ Route::resource('promotions','parameters\PromotionController')->middleware('auth
 Route::resource('promotionItems','parameters\PromotionItemController')->middleware('auth');
 Route::resource('waiters','parameters\WaiterController')->middleware('auth');
 Route::resource('companies','parameters\CompanyController')->middleware('auth');
-Route::resource('branchoffices','parameters\BranchOfficeController')->middleware('auth');
+Route::resource('branchOffices','parameters\BranchOfficeController')->middleware('auth');
 Route::resource('tables','parameters\TableController')->middleware('auth');
 
 Route::resource('scan','client\ScanController');
