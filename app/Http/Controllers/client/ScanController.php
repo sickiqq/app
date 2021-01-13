@@ -88,4 +88,19 @@ class ScanController extends Controller
         //
     }
 
+    public function read_qr($table_id)
+    {
+      $table_id = $table_id;
+      $table = Table::find($table_id);
+      $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
+      $promotions = Promotion::where('branch_office_id',$table->branchOffice->id)->get();
+
+      $products_array = array();
+      foreach ($products as $key => $product) {
+        $products_array[$product->subcategory->category->name][$product->subcategory->name][$product->name] = $product;
+      }
+
+      return view("client.product_menu",compact('table','products','promotions','products_array'));
+    }
+
 }

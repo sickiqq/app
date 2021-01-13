@@ -53,6 +53,7 @@ Route::resource('companies','parameters\CompanyController')->middleware('auth');
 Route::resource('branchoffices','parameters\BranchOfficeController')->middleware('auth');
 Route::resource('tables','parameters\TableController')->middleware('auth');
 
+Route::get('scan/read_qr/{table_id}','client\ScanController@read_qr')->name('scan.read_qr');
 Route::resource('scan','client\ScanController');
 Route::resource('register','client\RegisterController');
 Route::get('cart/{product}/add_product_to_cart','client\CartController@add_product_to_cart')->name('cart.add_product_to_cart');
