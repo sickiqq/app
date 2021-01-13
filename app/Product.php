@@ -22,7 +22,7 @@ class Product extends Model
   }
 
   public function branchOffice() {
-      return $this->belongsTo('\App\branchOffice');
+      return $this->belongsTo('\App\BranchOffice');
   }
 
   public function promotionItems() {
