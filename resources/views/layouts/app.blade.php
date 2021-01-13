@@ -29,6 +29,14 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+
+                @if(count(Cart::getContent()))
+                <a class="nav-link" href="{{ route('cart.checkout') }}">
+                    <i class="fas fa-shopping-cart"></i>
+                    [ <span class="badge badge-danger">{{count(Cart::getContent())}}</span> ]
+                </a>
+                @endif
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

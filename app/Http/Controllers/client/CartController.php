@@ -24,6 +24,13 @@ class CartController extends Controller
     public function index()
     {
       $table_id = session()->get('table_id');
+
+      // $table_id = 1;
+      if ($table_id == null) {
+        session()->flash('warning', 'Debe seleccionar una mesa.');
+        return redirect()->back();
+      }
+
       $table = Table::find($table_id);
       $products = Product::where('branch_office_id',$table->branchOffice->id)->get();
       $promotions = Promotion::where('branch_office_id',$table->branchOffice->id)->get();
