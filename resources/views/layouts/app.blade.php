@@ -45,6 +45,13 @@
                       </li>
 
                       <li class="nav-item">
+                          <a class="nav-link" href="{{ route('cart.index') }}">
+                              <i class="fas fa-list-ol"></i>
+                              Lista de precios
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
                           <a class="nav-link" href="{{ route('register.index') }}">
                               <i class="fas fa-user-plus"></i>
                               Registrarse
@@ -53,8 +60,29 @@
 
                     </ul>
 
+
+
+
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                        @if(count(Cart::getContent()))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('cart.checkout') }}">
+                                <i class="fas fa-shopping-cart"></i>
+                                [ <span class="badge badge-danger">{{count(Cart::getContent())}}</span> ]
+                            </a>
+                        </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('cart.checkout') }}">
+                                <i class="fas fa-shopping-cart"></i>
+                                [ 0 ]
+                            </a>
+                        </li>
+                        @endif
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -66,6 +94,8 @@
                                 </li>
                             @endif
                         @else
+
+
                             <li class="nav-item dropdown">
 
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -108,12 +138,22 @@
             @endforeach
 
             @yield('content')
+
+            <!-- <button class="btn btn-primary hBack mt-auto" type="button" style="position: absolute;bottom:10px;right:10px;">Atrás</button> -->
+
         </main>
     </div>
 
     <script src="{{ asset('js/jquery/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/popper/popper.min.js') }}" ></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+    <script>
+      $(".hBack").on("click", function(e){
+        e.preventDefault();
+        window.history.back();
+      });
+    </script>
     @yield('custom_js')
 </body>
 </html>

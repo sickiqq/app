@@ -115,7 +115,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-      dd("");
         // $user->run = $request->input('run');
         // $user->dv = $request->input('dv');
         $user->name = $request->input('name');

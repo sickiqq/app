@@ -53,8 +53,13 @@ Route::resource('companies','parameters\CompanyController')->middleware('auth');
 Route::resource('branchoffices','parameters\BranchOfficeController')->middleware('auth');
 Route::resource('tables','parameters\TableController')->middleware('auth');
 
-Route::get('scan/add_to_cart','client\ScanController@add_to_cart')->name('scan.add_to_cart')->middleware('auth');
-Route::resource('scan','client\ScanController')->middleware('auth');
-Route::resource('register','client\RegisterController')->middleware('auth');
+Route::resource('scan','client\ScanController');
+Route::resource('register','client\RegisterController');
+Route::get('cart/{product}/add_product_to_cart','client\CartController@add_product_to_cart')->name('cart.add_product_to_cart');
+Route::get('cart/{promotion}/add_promotion_to_cart','client\CartController@add_promotion_to_cart')->name('cart.add_promotion_to_cart');
+Route::get('cart/{product}/remove_product_from_cart','client\CartController@remove_product_from_cart')->name('cart.remove_product_from_cart');
+Route::get('cart/{promotion}/remove_promotion_from_cart','client\CartController@remove_promotion_from_cart')->name('cart.remove_promotion_from_cart');
+Route::get('cart/checkout','client\CartController@checkout')->name('cart.checkout');
+Route::resource('cart','client\CartController');
 
 Route::get('/home', 'HomeController@index')->name('home');

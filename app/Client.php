@@ -28,6 +28,13 @@ class Client extends Model
       return $this->hasMany('\App\SaleDetail');
   }
 
+  public function tables()
+  {
+      return $this->belongsToMany('App\Table','client_tables')
+                  // ->wherePivot('deleted_at', null);
+                  ->withPivot('entry_date','exit_date');
+  }
+
   use SoftDeletes;
 
   /**

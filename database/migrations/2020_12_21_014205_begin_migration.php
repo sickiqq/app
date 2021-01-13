@@ -178,6 +178,19 @@ class BeginMigration extends Migration
           $table->softDeletes();
       });
 
+      Schema::create('client_tables', function (Blueprint $table) {
+          $table->bigIncrements('id');
+          $table->unsignedBigInteger('clients_id');
+          $table->unsignedBigInteger('table_id')->nullable();
+          $table->dateTime('entry_date');
+          $table->dateTime('exit_date');
+
+          $table->foreign('clients_id')->references('id')->on('clients');
+          $table->foreign('table_id')->references('id')->on('tables');
+          $table->timestamps();
+          $table->softDeletes();
+      });
+
 
 
 
@@ -214,6 +227,7 @@ class BeginMigration extends Migration
     {
       Schema::dropIfExists('sale_details');
 
+      Schema::dropIfExists('client_tables');
       Schema::dropIfExists('promotion_items');
       Schema::dropIfExists('promotions');
       Schema::dropIfExists('products');
