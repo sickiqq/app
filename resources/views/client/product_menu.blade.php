@@ -4,15 +4,7 @@
 
 @section('content')
 
-<!-- <div class="visible-print text-center">
-    {!! QrCode::size(100)->generate(Request::url()); !!}
-</div>
-
-<hr> -->
-
-<!-- <form method="POST" class="form-horizontal" action="#">
-    @csrf
-    @method('POST') -->
+<!-- {{Session::get('user_name')}} -->
 
     <div class="row">
 
@@ -87,13 +79,70 @@
       </tbody>
     </table>
 
+    <!-- modal -->
+    <div class="modal fade" id="add_client_name_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ingresa tu nombre</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <fieldset class="form-group col">
+                <input type="text" class="form-control" id="txt_user_name" name="">
+              </fieldset>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btn_add_client_name">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- <button type="submit" class="btn btn-primary">Guardar</button>
-
-</form> -->
 
 @endsection
 
 @section('custom_js')
+<script type="text/javascript">
+    //levantar modal
+    var user_name = '{{ Session::get('user_name') }}';
+    if (user_name == "") {
+      $(window).on('load', function() {
+          // $('#add_client_name_modal').modal('show');
+          $('#add_client_name_modal').modal({
+              backdrop: 'static',
+              keyboard: false
+          });
+      });
+    }
 
+
+    //agregar nombre del cliente
+    $('#btn_add_client_name').click(function($e){
+
+        var txt_user_name = $("#txt_user_name").val();
+        if (txt_user_name == "") {
+
+        }else {
+          $.ajax({
+            url:"{{ route('cart.add_client_name') }}",
+            type:"post",
+            data:{user_name:txt_user_name},
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success:function(results){
+              // alert("success");
+            },
+            error: function (request, error) {
+                console.log(arguments);
+            }
+          });
+
+          $('#add_client_name_modal').modal('hide');
+        }
+
+    });
+</script>
 @endsection

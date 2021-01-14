@@ -24,8 +24,8 @@ class CartController extends Controller
     public function index()
     {
       $table_id = session()->get('table_id');
-
-      // $table_id = 1;
+      // dd(session()->get('user_name'));
+      $table_id = 1;
       if ($table_id == null) {
         session()->flash('warning', 'Debe seleccionar una mesa.');
         return redirect()->back();
@@ -185,6 +185,14 @@ class CartController extends Controller
         session()->flash('info', 'Se eliminó la promoción del carrito de compras.');
         return redirect()->back();
     }
+
+    public function add_client_name(Request $request)
+    {
+        session()->put('user_name', $request->user_name);
+
+    }
+
+
 
 
 }
