@@ -252,7 +252,7 @@ class CartController extends Controller
       try {
 
 
-        $client = Client->where('facebook_id',$request->facebook_id)->first();
+        $client = Client::where('facebook_id',$request->facebook_id)->first();
         if ($client == null) {
           //se crea un cliente nuevo (temporal)
           $client = new Client();
