@@ -248,7 +248,9 @@
     };
 
     function add_facebook_client_name(){
+      alert("entró1");
       FB.login(function(response) {
+          alert("entró2");
           var user_name = response.name;
           var facebook_id = response.id;
           alert(facebook_id);
