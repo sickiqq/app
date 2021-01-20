@@ -196,31 +196,30 @@
           statusChangeCallback(response);
       });
 
-      // FB.login(function(response) {
-      //   console.log(response);
-      //   if (response.status === 'connected') {
-      //     $.ajax({
-      //       url:"{{ route('cart.add_facebook_client_name') }}",
-      //       type:"post",
-      //       data:{user_name:response.name,facebook_id:response.id},
-      //       headers: {
-      //           'X-CSRF-TOKEN': "{{ csrf_token() }}"
-      //       },
-      //       success:function(results){
-      //         // alert("success");
-      //         $("#lbl_user_name").text(response.name);
-      //       },
-      //       error: function (request, error) {
-      //           console.log(arguments);
-      //       }
-      //     });
-      //   } else {
-      //     // The person is not logged into your webpage or we are unable to tell.
-      //   }
-      // });
-
+      $('#btn_add_client_name').click(function($e){
+        FB.login(function(response) {
+            $.ajax({
+              url:"{{ route('cart.add_facebook_client_name') }}",
+              type:"post",
+              data:{user_name:response.name,facebook_id:response.id},
+              headers: {
+                  'X-CSRF-TOKEN': "{{ csrf_token() }}"
+              },
+              success:function(results){
+                // alert("success");
+                $("#lbl_user_name").text(response.name);
+              },
+              error: function (request, error) {
+                  console.log(arguments);
+              }
+            });
+        }, {scope: 'email,user_likes'});
+      });
 
     };
+
+
+
 
     // $( document ).ready(function() {
     //   FB.login(function(response) {
