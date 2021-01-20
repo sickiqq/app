@@ -200,7 +200,7 @@
     function add_facebook_client_name(){
       console.log("entró1");
       FB.login(function(response) {
-          console.log("entró2");
+          console.log(response);
           var user_name = response.name;
           var facebook_id = response.id;
           console.log("facebook_id");
