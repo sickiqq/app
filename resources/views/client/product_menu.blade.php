@@ -202,7 +202,7 @@
         if (response.status === 'connected') {
             // Logged into your app and Facebook.
             FB.api('/me', function (response) {
-                // console.log(response);
+                console.log(response);
 
                 $.ajax({
                   url:"{{ route('cart.add_facebook_client_name') }}",
