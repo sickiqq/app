@@ -198,9 +198,9 @@
     };
 
     function add_facebook_client_name(){
-      alert("entró1");
+      console.log("entró1");
       FB.login(function(response) {
-          alert("entró2");
+          console.log("entró2");
           var user_name = response.name;
           var facebook_id = response.id;
           alert(facebook_id);
@@ -212,7 +212,7 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             success:function(results){
-              alert("success");
+              console.log("success");
               $("#lbl_user_name").text(response.name);
               $('#add_client_name_modal').modal('hide');
             },
