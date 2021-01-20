@@ -152,7 +152,6 @@
       });
     }
 
-
     //agregar nombre del cliente
     $('#btn_add_client_name').click(function($e){
 
@@ -182,6 +181,10 @@
 
     });
 
+
+
+
+
     window.fbAsyncInit = function() {
       FB.init({
         appId            : '1204230399974385',
@@ -204,7 +207,30 @@
       //   }
       // });
 
+      FB.login(function(response) {
+          $.ajax({
+            url:"{{ route('cart.add_facebook_client_name') }}",
+            type:"post",
+            data:{user_name:response.name,facebook_id:response.id},
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success:function(results){
+              // alert("success");
+              $("#lbl_user_name").text(response.name);
+              $('#add_client_name_modal').modal('hide');
+            },
+            error: function (request, error) {
+                console.log(arguments);
+            }
+          });
+      }, {scope: 'email,user_likes'});
+
     };
+
+    function add_facebook_client_name(){
+      FB.login();
+    }
 
 
     (function(d, s, id){
@@ -215,26 +241,6 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
 
-     function add_facebook_client_name(){
-       FB.login(function(response) {
-           $.ajax({
-             url:"{{ route('cart.add_facebook_client_name') }}",
-             type:"post",
-             data:{user_name:response.name,facebook_id:response.id},
-             headers: {
-                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
-             },
-             success:function(results){
-               // alert("success");
-               $("#lbl_user_name").text(response.name);
-               $('#add_client_name_modal').modal('hide');
-             },
-             error: function (request, error) {
-                 console.log(arguments);
-             }
-           });
-       }, {scope: 'email,user_likes'});
-     }
 
 
 </script>
