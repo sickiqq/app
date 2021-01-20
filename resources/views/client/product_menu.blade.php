@@ -257,7 +257,7 @@
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
             success:function(results){
-              // alert("success");
+              alert("success");
               $("#lbl_user_name").text(response.name);
               $('#add_client_name_modal').modal('hide');
             },
