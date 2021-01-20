@@ -203,7 +203,8 @@
           console.log("entró2");
           var user_name = response.name;
           var facebook_id = response.id;
-          alert(facebook_id);
+          console.log("facebook_id");
+          console.log(facebook_id);
           $.ajax({
             url:"{{ route('cart.add_facebook_client_name') }}",
             type:"post",
