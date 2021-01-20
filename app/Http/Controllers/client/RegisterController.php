@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Client;
 
 class RegisterController extends Controller
 {
@@ -35,7 +36,17 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //se modifica usuario creado
+        // dd(session()->get('user_id'));
+        $client = Client::find(session()->get('user_id'));
+        $client->name = $request->name;
+        $client->email = $request->email;
+        $client->phone_number = $request->phone_number;
+        $client->password = bcrypt($request->password);
+        $client->save();
+
+        session()->flash('success', 'Se ha registrado el usuario.');
+        return redirect()->route('cart.index');
     }
 
     /**

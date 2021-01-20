@@ -13,7 +13,7 @@ class Client extends Model
    * @var array
    */
   protected $fillable = [
-      'id','level_id','clan_id','name','nickname','show','experience','facebook_id','country','city','address','number'
+      'id','level_id','clan_id','email','name','nickname','phone_number','show','experience','facebook_id','country','city','address','address_number','password'
   ];
 
   public function clan() {

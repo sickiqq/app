@@ -13,7 +13,7 @@ class ClientTable extends Model
    * @var array
    */
   protected $fillable = [
-      'clients_id', 'table_id', 'entry_date', 'exit_date'
+      'client_id', 'table_id', 'entry_date', 'exit_date'
   ];
 
   // public function operating_rooms()

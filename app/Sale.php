@@ -13,7 +13,7 @@ class Sale extends Model
    * @var array
    */
   protected $fillable = [
-      'id','waiter_id','table_id','date','total'
+      'id','waiter_id','table_id','date','total','status'
   ];
 
   public function table() {

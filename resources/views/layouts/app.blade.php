@@ -30,12 +30,13 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
 
-                @if(count(Cart::getContent()))
+                <!-- @if(count(Cart::getContent()))
                 <a class="nav-link" href="{{ route('cart.checkout') }}">
+                    <label id="lbl_user_name">{{Session::get('user_name')}}</label>
                     <i class="fas fa-shopping-cart"></i>
                     [ <span class="badge badge-danger">{{count(Cart::getContent())}}</span> ]
                 </a>
-                @endif
+                @endif -->
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -59,12 +60,12 @@
                           </a>
                       </li>
 
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                           <a class="nav-link" href="{{ route('register.index') }}">
                               <i class="fas fa-user-plus"></i>
                               Registrarse
                           </a>
-                      </li>
+                      </li> -->
 
                     </ul>
 
@@ -74,10 +75,16 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="btn_register_modal">
+                              <i class="fas fa-user-plus"></i>
+                              Registrarse
+                            </a>
+                        </li>
                         @if(count(Cart::getContent()))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cart.checkout') }}">
+                                <label id="lbl_user_name">{{Session::get('user_name')}}</label>
                                 <i class="fas fa-shopping-cart"></i>
                                 [ <span class="badge badge-danger">{{count(Cart::getContent())}}</span> ]
                             </a>
@@ -85,6 +92,7 @@
                         @else
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cart.checkout') }}">
+                                <label id="lbl_user_name">{{Session::get('user_name')}}</label>
                                 <i class="fas fa-shopping-cart"></i>
                                 [ 0 ]
                             </a>
@@ -152,6 +160,96 @@
         </main>
     </div>
 
+    <div class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Registrate!!</h5>
+          </div> -->
+          <div class="modal-body">
+
+            <!-- <div class="row">
+              <fieldset class="form-group col">
+                <input type="text" class="form-control" id="txt_email" name="" placeholder="Tu correo electrónico">
+              </fieldset>
+            </div> -->
+
+            <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+            	<h4 class="card-title mt-3 text-center">Registrate</h4>
+            	<!-- <p class="text-center">Get started with your free account</p> -->
+            	<p>
+            		<a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Ingresar via Twitter</a>
+            		<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Ingresar via facebook</a>
+            	</p>
+            	<p class="divider-text">
+                    <span class="bg-light">O</span>
+                </p>
+
+              <form method="POST" class="form-horizontal" action="{{ route('register.store') }}">
+                @csrf
+                @method('POST')
+
+            	<div class="form-group input-group">
+            		<div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            		 </div>
+                    <input name="name" class="form-control" placeholder="Nombre completo" type="text" value="{{Session::get('user_name')}}">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                	<div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+            		 </div>
+                    <input name="email" class="form-control" placeholder="Correo electrónico" type="email">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                	<div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            		</div>
+            		<select class="custom-select" style="max-width: 120px;">
+            		    <option selected="">+569</option>
+            		</select>
+                	<input name="phone_number" class="form-control" placeholder="Número de celular" type="text">
+                </div> <!-- form-group// -->
+                <!-- <div class="form-group input-group">
+                	<div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+            		</div>
+            		<select class="form-control">
+            			<option selected=""> Select job type</option>
+            			<option>Designer</option>
+            			<option>Manager</option>
+            			<option>Accaunting</option>
+            		</select>
+            	</div>-->
+                <div class="form-group input-group">
+                	<div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            		</div>
+                    <input class="form-control" placeholder="Contraseña" type="password" name="password">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                	<div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            		</div>
+                    <input class="form-control" placeholder="Repite contraseña" type="password" name="confirm_password">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Crear tu cuenta  </button>
+                </div> <!-- form-group// -->
+                <p class="text-center">¿Ya tienes una cuenta? <a href="">Ingresar</a> </p>
+            </form>
+            </article>
+            </div>
+
+          </div>
+          <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btn_add_client_name">Guardar</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
     <script src="{{ asset('js/jquery/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('js/popper/popper.min.js') }}" ></script>
     <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
@@ -161,6 +259,15 @@
         e.preventDefault();
         window.history.back();
       });
+      //
+      // $('#btn_add_client_name').click(function($e){
+      //   $('#myModal').modal('show');
+      // }
+
+      $('#btn_register_modal').click(function($e){
+        $('#register_modal').modal('show');
+      });
+
     </script>
     @yield('custom_js')
 </body>

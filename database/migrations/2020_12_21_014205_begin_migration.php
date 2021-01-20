@@ -59,10 +59,11 @@ class BeginMigration extends Migration
 
       Schema::create('sales', function (Blueprint $table) {
           $table->bigIncrements('id');
-          $table->unsignedBigInteger('waiter_id');
+          $table->unsignedBigInteger('waiter_id')->nullable();
           $table->unsignedBigInteger('table_id');
           $table->dateTime('date');
-          $table->decimal('total', 8, 2);
+          $table->decimal('total', 8, 2)->nullable();
+          $table->enum('status', ['open', 'paid_out']);
 
           $table->foreign('waiter_id')->references('id')->on('waiters');
           $table->foreign('table_id')->references('id')->on('tables');
@@ -160,17 +161,20 @@ class BeginMigration extends Migration
 
       Schema::create('clients', function (Blueprint $table) {
           $table->bigIncrements('id');
-          $table->unsignedBigInteger('level_id');
+          $table->unsignedBigInteger('level_id')->nullable();
           $table->unsignedBigInteger('clan_id')->nullable();
-          $table->string('name');
-          $table->string('nickname');
+          $table->string('email')->unique()->nullable();
+          $table->string('name')->nullable();
+          $table->string('nickname')->nullable();
+          $table->bigInteger('phone_number')->nullable();
           $table->boolean('show')->default(0);
           $table->bigInteger('experience')->default(0);
           $table->string('facebook_id')->nullable();
           $table->string('country')->nullable();
           $table->string('city')->nullable();
           $table->string('address')->nullable();
-          $table->integer('number')->nullable();
+          $table->string('address_number')->nullable();
+          $table->string('password')->nullable();
 
           $table->foreign('level_id')->references('id')->on('levels');
           $table->foreign('clan_id')->references('id')->on('clans');
@@ -180,12 +184,13 @@ class BeginMigration extends Migration
 
       Schema::create('client_tables', function (Blueprint $table) {
           $table->bigIncrements('id');
-          $table->unsignedBigInteger('clients_id');
-          $table->unsignedBigInteger('table_id')->nullable();
+          $table->unsignedBigInteger('client_id')->nullable();
+          $table->unsignedBigInteger('table_id');
+          // $table->string('user_name')->nullable();
           $table->dateTime('entry_date');
-          $table->dateTime('exit_date');
+          $table->dateTime('exit_date')->nullable();
 
-          $table->foreign('clients_id')->references('id')->on('clients');
+          $table->foreign('client_id')->references('id')->on('clients');
           $table->foreign('table_id')->references('id')->on('tables');
           $table->timestamps();
           $table->softDeletes();

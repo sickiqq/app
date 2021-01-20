@@ -5,6 +5,7 @@
 @section('content')
 
 <!-- {{Session::get('user_name')}} -->
+<link rel="stylesheet" type="text/css" href="{{ asset('css/register.css') }}">
 
     <div class="row">
 
@@ -84,21 +85,54 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ingresa tu nombre</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Identificate!</h5>
           </div>
           <div class="modal-body">
-            <div class="row">
+
+            <!-- <div class="row">
               <fieldset class="form-group col">
-                <input type="text" class="form-control" id="txt_user_name" name="">
+                <input type="text" class="form-control" id="txt_user_name" name="" placeholder="Tu nombre">
               </fieldset>
+            </div> -->
+
+            <div class="card bg-light">
+            <article class="card-body ">
+            	<!-- <h4 class="card-title mt-3 text-center">Registrate</h4> -->
+            	<!-- <p class="text-center">Get started with your free account</p> -->
+            	<p>
+            		<!-- <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Ingresar via Twitter</a>
+            		<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Ingresar via facebook</a> -->
+                <div class="fb-login-button" data-size="medium" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
+            	</p>
+            	<p class="divider-text">
+                    <span class="bg-light">O</span>
+                </p>
+
+          	  <div class="form-group input-group">
+            		 <div class="input-group-prepend">
+            		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            		 </div>
+                 <input name="name" class="form-control" id="txt_user_name" placeholder="Tu nombre" type="text" value="{{Session::get('user_name')}}">
+              </div> <!-- form-group// -->
+
+              <div class="form-group">
+                  <button type="submit" id="btn_add_client_name" class="btn btn-primary btn-block"> Ingresar </button>
+              </div>
+              <p class="text-center">¿Ya tienes una cuenta? <a href="">Ingresar</a> </p>
+
+            </article>
             </div>
+
           </div>
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="btn_add_client_name">Guardar</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v9.0" nonce="aIXIeqc2"></script>
 
 
 @endsection
@@ -110,6 +144,7 @@
     if (user_name == "") {
       $(window).on('load', function() {
           // $('#add_client_name_modal').modal('show');
+          // $("#txt_user_name").focus();
           $('#add_client_name_modal').modal({
               backdrop: 'static',
               keyboard: false
@@ -122,6 +157,7 @@
     $('#btn_add_client_name').click(function($e){
 
         var txt_user_name = $("#txt_user_name").val();
+        // var txt_user_name = $("#txt_email").val();
         if (txt_user_name == "") {
 
         }else {
@@ -134,6 +170,7 @@
             },
             success:function(results){
               // alert("success");
+              $("#lbl_user_name").text(txt_user_name);
             },
             error: function (request, error) {
                 console.log(arguments);
@@ -144,5 +181,31 @@
         }
 
     });
+
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '1204230399974385',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v9.0'
+      });
+
+      FB.AppEvents.logPageView();
+
+      FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+          console.log(response);
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+
 </script>
 @endsection

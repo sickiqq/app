@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use App\Table;
+use App\Client;
 use App\ClientTable;
 use App\Product;
 use App\Promotion;
 use App\Category;
+use App\Sale;
+use App\SaleDetail;
 use Cart;
 use Session;
 
@@ -25,7 +30,10 @@ class CartController extends Controller
     {
       $table_id = session()->get('table_id');
       // dd(session()->get('user_name'));
+
       $table_id = 1;
+      session()->put('table_id', $table_id);
+
       if ($table_id == null) {
         session()->flash('warning', 'Debe seleccionar una mesa.');
         return redirect()->back();
@@ -61,25 +69,51 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        // // view the cart items
-        // $items = Cart::getContent();
-        // foreach($items as $item) {
-        //
-        //   if ($item['associatedModel']->getTable() == "promotions") {
-        //
-        //     $promotion = new Promotion($request->All());
-        //     $promotion->save();
-        //
-        //     session()->flash('success', 'La categoría ha sido creada.');
-        //     return redirect()->route('categories.index');
-        //   }
-        //
-        // // echo $row->id; // row ID
-        // // echo $row->name;
-        // // echo $row->qty;
-        // // echo $row->price;
-        // // echo ;
-        // }
+        // view the cart items
+        $items = Cart::getContent();
+        $table_id = session()->get('table_id');
+
+        //verifica si exista una boleta abierta
+        $sale = Sale::where('table_id',$table_id)->where('status','open')->first();
+        if ($sale == null) {
+          //crea nueva boleta
+          $sale = new Sale();
+          $sale->table_id = $table_id;
+          $sale->date = Carbon::now();
+          $sale->save();
+        }
+
+        foreach($items as $item) {
+          if ($item['associatedModel']->getTable() == "promotions") {
+            $saleDetail = new SaleDetail();
+            $saleDetail->client_id = session()->get('user_id');
+            // $saleDetail->product_id = $item['attributes']['product_id'];
+            $saleDetail->promotion_id = $item['attributes']['promotion_id'];
+            $saleDetail->sale_id = $sale->id;
+            $saleDetail->date = Carbon::now();
+            $saleDetail->amount = $item->quantity;
+            $saleDetail->price = $item->price;
+            $saleDetail->save();
+          }else{
+            $saleDetail = new SaleDetail();
+            $saleDetail->client_id = session()->get('user_id');
+            $saleDetail->product_id = $item['attributes']['product_id'];
+            // $saleDetail->promotion_id = $item['attributes']['promotion_id'];
+            $saleDetail->sale_id = $sale->id;
+            $saleDetail->date = Carbon::now();
+            $saleDetail->amount = $item->quantity;
+            $saleDetail->price = $item->price;
+            $saleDetail->save();
+          }
+        }
+
+        //se elimina info de carrito de compras
+        foreach($items as $item) {
+          Cart::remove($item['id']);
+        }
+
+        session()->flash('success', 'El pedido ha sido ingresado.');
+        return redirect()->route('cart.index');
     }
 
     /**
@@ -138,7 +172,7 @@ class CartController extends Controller
           'name' => $product->name,
           'price' => $product->price,
           'quantity' => 1,
-          'attributes' => array(),
+          'attributes' => array('product_id' => $product->id),
           'associatedModel' => $product
         ));
 
@@ -154,7 +188,7 @@ class CartController extends Controller
           'name' => $promotion->name,
           'price' => $promotion->price,
           'quantity' => 1,
-          'attributes' => array(),
+          'attributes' => array('promotion_id' => $promotion->id),
           'associatedModel' => $promotion
         ));
 
@@ -188,9 +222,53 @@ class CartController extends Controller
 
     public function add_client_name(Request $request)
     {
-        session()->put('user_name', $request->user_name);
+      try {
+        //se crea un cliente nuevo (temporal)
+        $client = new Client();
+        $client->nickname = $request->user_name;
+        $client->save();
 
+        //crea variable session
+        session()->put('user_name', $request->user_name);
+        session()->put('user_id', $client->id);
+
+        //pendiente crear una variable para identificar si ya esta registrado el correo y otros datos adicionales
+
+        //se guarda cliente en mesa
+        $clientTable = new ClientTable();
+        $clientTable->client_id = $client->id;
+        $clientTable->table_id = session()->get('table_id');
+        // $clientTable->user_name = $request->user_name;
+        $clientTable->entry_date = Carbon::now();
+        $clientTable->save();
+
+      } catch (\Exception $e) {
+        Storage::put('errores.txt', $e->getMessage());
+      }
     }
+
+    // public function remove_user(Request $request)
+    // {
+    //   try {
+    //     //crea variable session
+    //     session()->put('user_name', $request->user_name);
+    //
+    //     //se crea un cliente nuevo (temporal)
+    //     $client = new Client();
+    //     $client->name = $request->user_name;
+    //     $client->save();
+    //
+    //     //se guarda cliente en mesa
+    //     $clientTable = new ClientTable();
+    //     $clientTable->client_id = $client->id;
+    //     $clientTable->table_id = session()->get('table_id');
+    //     $clientTable->entry_date = Carbon\Carbon::now();
+    //     $clientTable->save();
+    //
+    //   } catch (\Exception $e) {
+    //     Storage::put('errores.txt', $e->getMessage());
+    //   }
+    // }
 
 
 
