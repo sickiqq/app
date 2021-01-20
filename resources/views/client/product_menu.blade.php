@@ -102,7 +102,7 @@
             	<p>
             		<!-- <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Ingresar via Twitter</a>
             		<a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Ingresar via facebook</a> -->
-                <div class="fb-login-button" data-width="" data-size="medium" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
+                <div class="fb-login-button" data-width="" data-size="medium" data-button-type="continue_with" data-layout="default" data-onlogin="add_facebook_client_name" data-auto-logout-link="false" data-use-continue-as="true"></div>
               </p>
             	<p class="divider-text">
                     <span class="bg-light">O</span>
@@ -205,22 +205,7 @@
       });
 
       // FB.login(function(response) {
-      //     $.ajax({
-      //       url:"{{ route('cart.add_facebook_client_name') }}",
-      //       type:"post",
-      //       data:{user_name:response.name,facebook_id:response.id},
-      //       headers: {
-      //           'X-CSRF-TOKEN': "{{ csrf_token() }}"
-      //       },
-      //       success:function(results){
-      //         // alert("success");
-      //         $("#lbl_user_name").text(response.name);
-      //         $('#add_client_name_modal').modal('hide');
-      //       },
-      //       error: function (request, error) {
-      //           console.log(arguments);
-      //       }
-      //     });
+
       // }, {scope: 'email,user_likes'});
 
     };
@@ -232,6 +217,25 @@
        js.src = "https://connect.facebook.net/en_US/sdk.js";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
+
+     function add_facebook_client_name(){
+           $.ajax({
+             url:"{{ route('cart.add_facebook_client_name') }}",
+             type:"post",
+             data:{user_name:response.name,facebook_id:response.id},
+             headers: {
+                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
+             },
+             success:function(results){
+               // alert("success");
+               $("#lbl_user_name").text(response.name);
+               $('#add_client_name_modal').modal('hide');
+             },
+             error: function (request, error) {
+                 console.log(arguments);
+             }
+           });
+     }
 
 
 </script>
