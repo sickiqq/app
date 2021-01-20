@@ -257,6 +257,7 @@ class CartController extends Controller
           //se crea un cliente nuevo (temporal)
           $client = new Client();
           $client->name = $request->user_name;
+          $client->email = $request->email;
           $client->facebook_id = $request->facebook_id;
           $client->save();
         }
