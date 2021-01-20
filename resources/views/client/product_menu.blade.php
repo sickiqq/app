@@ -210,6 +210,25 @@
 
     };
 
+    function add_facebook_client_name(){
+          $.ajax({
+            url:"{{ route('cart.add_facebook_client_name') }}",
+            type:"post",
+            data:{user_name:response.name,facebook_id:response.id},
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success:function(results){
+              // alert("success");
+              $("#lbl_user_name").text(response.name);
+              $('#add_client_name_modal').modal('hide');
+            },
+            error: function (request, error) {
+                console.log(arguments);
+            }
+          });
+    }
+
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
@@ -217,25 +236,6 @@
        js.src = "https://connect.facebook.net/en_US/sdk.js";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
-
-     function add_facebook_client_name(){
-           $.ajax({
-             url:"{{ route('cart.add_facebook_client_name') }}",
-             type:"post",
-             data:{user_name:response.name,facebook_id:response.id},
-             headers: {
-                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
-             },
-             success:function(results){
-               // alert("success");
-               $("#lbl_user_name").text(response.name);
-               $('#add_client_name_modal').modal('hide');
-             },
-             error: function (request, error) {
-                 console.log(arguments);
-             }
-           });
-     }
 
 
 </script>
