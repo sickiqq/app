@@ -247,6 +247,39 @@ class CartController extends Controller
       }
     }
 
+    public function add_facebook_client_name(Request $request)
+    {
+      try {
+
+
+        $client = Client->where('facebook_id',$request->facebook_id)->first();
+        if ($client == null) {
+          //se crea un cliente nuevo (temporal)
+          $client = new Client();
+          $client->name = $request->user_name;
+          $client->facebook_id = $request->facebook_id;
+          $client->save();
+        }
+
+        //crea variable session
+        session()->put('user_name', $request->user_name);
+        session()->put('user_id', $client->id);
+
+        //pendiente crear una variable para identificar si ya esta registrado el correo y otros datos adicionales
+
+        //se guarda cliente en mesa
+        $clientTable = new ClientTable();
+        $clientTable->client_id = $client->id;
+        $clientTable->table_id = session()->get('table_id');
+        // $clientTable->user_name = $request->user_name;
+        $clientTable->entry_date = Carbon::now();
+        $clientTable->save();
+
+      } catch (\Exception $e) {
+        Storage::put('errores.txt', $e->getMessage());
+      }
+    }
+
     // public function remove_user(Request $request)
     // {
     //   try {
