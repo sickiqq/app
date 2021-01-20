@@ -259,10 +259,11 @@
              // console.log('Good to see you, ' + response.name + '.');
              var user_name = response.name;
              var facebook_id = response.id;
+             var email = response.email;
              $.ajax({
                url:"{{ route('cart.add_facebook_client_name') }}",
                type:"post",
-               data:{user_name:user_name,facebook_id:facebook_id},
+               data:{user_name:user_name,facebook_id:facebook_id,email:email},
                headers: {
                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
                },
@@ -278,6 +279,9 @@
           } else {
            console.log('User cancelled login or did not fully authorize.');
           }
+      }, {
+          scope: 'email',
+          return_scopes: true
       });
     }
 
