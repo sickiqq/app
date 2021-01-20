@@ -193,7 +193,15 @@
       FB.AppEvents.logPageView();
 
       FB.getLoginStatus(function(response) {
-          statusChangeCallback(response);
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            FB.api('/me', function (response) {
+                console.log(response);
+            });
+        } else {
+            // The person is not logged into your app or we are unable to tell.
+            document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+        }
       });
 
       // FB.login(function(response) {
@@ -216,21 +224,6 @@
       // }, {scope: 'email,user_likes'});
 
     };
-
-
-    function statusChangeCallback(response) {
-        // console.log('statusChangeCallback');
-        if (response.status === 'connected') {
-            // Logged into your app and Facebook.
-            FB.api('/me', function (response) {
-                console.log(response);
-            });
-        } else {
-            // The person is not logged into your app or we are unable to tell.
-            document.getElementById('status').innerHTML = 'Please log ' +
-              'into this app.';
-        }
-    }
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
