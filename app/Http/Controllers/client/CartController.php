@@ -260,6 +260,10 @@ class CartController extends Controller
           $client->email = $request->email;
           $client->facebook_id = $request->facebook_id;
           $client->save();
+        }else{
+          $client->name = $request->user_name;
+          $client->email = $request->email;
+          $client->save();
         }
 
         //crea variable session
