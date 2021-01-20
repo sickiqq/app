@@ -204,11 +204,12 @@
                 $.ajax({
                   url:"{{ route('cart.add_facebook_client_name') }}",
                   type:"post",
-                  data:{user_name:response.name,facebook_id:response.id,email:response.email},
+                  data:{user_name:response.name,facebook_id:response.id},
                   headers: {
                       'X-CSRF-TOKEN': "{{ csrf_token() }}"
                   },
                   success:function(results){
+                    alert("success");
                     $("#lbl_user_name").text(response.name);
                     $('#add_client_name_modal').modal('hide');
                   },
@@ -226,11 +227,12 @@
                 $.ajax({
                   url:"{{ route('cart.add_facebook_client_name') }}",
                   type:"post",
-                  data:{user_name:response.name,facebook_id:response.id,email:response.email},
+                  data:{user_name:response.name,facebook_id:response.id},
                   headers: {
                       'X-CSRF-TOKEN': "{{ csrf_token() }}"
                   },
                   success:function(results){
+                    alert("success");
                     $("#lbl_user_name").text(response.name);
                     $('#add_client_name_modal').modal('hide');
                   },
@@ -238,7 +240,7 @@
                       console.log(arguments);
                   }
                 });
-                
+
             }, {scope: 'email,user_likes'});
         }
       });
