@@ -204,30 +204,30 @@
         }
       });
 
-      // FB.login(function(response) {
-
-      // }, {scope: 'email,user_likes'});
+      function add_facebook_client_name(){
+        FB.login(function(response) {
+            $.ajax({
+              url:"{{ route('cart.add_facebook_client_name') }}",
+              type:"post",
+              data:{user_name:response.name,facebook_id:response.id},
+              headers: {
+                  'X-CSRF-TOKEN': "{{ csrf_token() }}"
+              },
+              success:function(results){
+                // alert("success");
+                $("#lbl_user_name").text(response.name);
+                $('#add_client_name_modal').modal('hide');
+              },
+              error: function (request, error) {
+                  console.log(arguments);
+              }
+            });
+        }, {scope: 'email,user_likes'});
+      }
 
     };
 
-    function add_facebook_client_name(){
-          $.ajax({
-            url:"{{ route('cart.add_facebook_client_name') }}",
-            type:"post",
-            data:{user_name:response.name,facebook_id:response.id},
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
-            success:function(results){
-              // alert("success");
-              $("#lbl_user_name").text(response.name);
-              $('#add_client_name_modal').modal('hide');
-            },
-            error: function (request, error) {
-                console.log(arguments);
-            }
-          });
-    }
+
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
