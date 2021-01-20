@@ -207,6 +207,7 @@
             success:function(results){
               // alert("success");
               $("#lbl_user_name").text(response.name);
+              $('#add_client_name_modal').modal('hide');
             },
             error: function (request, error) {
                 console.log(arguments);
