@@ -195,6 +195,28 @@
       FB.getLoginStatus(function(response) {
           statusChangeCallback(response);
       });
+
+      FB.login(function(response) {
+        if (response.status === 'connected') {
+          $.ajax({
+            url:"{{ route('cart.add_facebook_client_name') }}",
+            type:"post",
+            data:{user_name:response.name,facebook_id:response.id},
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success:function(results){
+              // alert("success");
+              $("#lbl_user_name").text(response.name);
+            },
+            error: function (request, error) {
+                console.log(arguments);
+            }
+          });
+        } else {
+          // The person is not logged into your webpage or we are unable to tell.
+        }
+      });
     };
 
     function statusChangeCallback(response) {
@@ -203,22 +225,6 @@
             // Logged into your app and Facebook.
             FB.api('/me', function (response) {
                 console.log(response);
-
-                $.ajax({
-                  url:"{{ route('cart.add_facebook_client_name') }}",
-                  type:"post",
-                  data:{user_name:response.name,facebook_id:response.id},
-                  headers: {
-                      'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                  },
-                  success:function(results){
-                    // alert("success");
-                    $("#lbl_user_name").text(response.name);
-                  },
-                  error: function (request, error) {
-                      console.log(arguments);
-                  }
-                });
             });
         } else {
             // The person is not logged into your app or we are unable to tell.
