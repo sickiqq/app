@@ -196,25 +196,43 @@
           statusChangeCallback(response);
       });
 
-      $('#btn_add_client_name').click(function($e){
-        FB.login(function(response) {
-            $.ajax({
-              url:"{{ route('cart.add_facebook_client_name') }}",
-              type:"post",
-              data:{user_name:response.name,facebook_id:response.id},
-              headers: {
-                  'X-CSRF-TOKEN': "{{ csrf_token() }}"
-              },
-              success:function(results){
-                // alert("success");
-                $("#lbl_user_name").text(response.name);
-              },
-              error: function (request, error) {
-                  console.log(arguments);
-              }
-            });
-        }, {scope: 'email,user_likes'});
-      });
+      FB.login(function(response) {
+          $.ajax({
+            url:"{{ route('cart.add_facebook_client_name') }}",
+            type:"post",
+            data:{user_name:response.name,facebook_id:response.id},
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success:function(results){
+              // alert("success");
+              $("#lbl_user_name").text(response.name);
+            },
+            error: function (request, error) {
+                console.log(arguments);
+            }
+          });
+      }, {scope: 'email,user_likes'});
+
+      // $('#btn_add_client_name').click(function($e){
+      //   FB.login(function(response) {
+      //       $.ajax({
+      //         url:"{{ route('cart.add_facebook_client_name') }}",
+      //         type:"post",
+      //         data:{user_name:response.name,facebook_id:response.id},
+      //         headers: {
+      //             'X-CSRF-TOKEN': "{{ csrf_token() }}"
+      //         },
+      //         success:function(results){
+      //           // alert("success");
+      //           $("#lbl_user_name").text(response.name);
+      //         },
+      //         error: function (request, error) {
+      //             console.log(arguments);
+      //         }
+      //       });
+      //   }, {scope: 'email,user_likes'});
+      // });
 
     };
 
