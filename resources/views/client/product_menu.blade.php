@@ -201,31 +201,45 @@
             FB.api('/me', function (response) {
                 console.log(response);
 
-                FB.login(function(response) {
-                    alert("1");
-                    $.ajax({
-                      url:"{{ route('cart.add_facebook_client_name') }}",
-                      type:"post",
-                      data:{user_name:response.name,facebook_id:response.id,email:response.email},
-                      headers: {
-                          'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                      },
-                      success:function(results){
-                        alert("success");
-                        $("#lbl_user_name").text(response.name);
-                        $('#add_client_name_modal').modal('hide');
-                      },
-                      error: function (request, error) {
-                          console.log(arguments);
-                      }
-                    });
-                }, {scope: 'email,user_likes'});
-                alert("2");
+                $.ajax({
+                  url:"{{ route('cart.add_facebook_client_name') }}",
+                  type:"post",
+                  data:{user_name:response.name,facebook_id:response.id,email:response.email},
+                  headers: {
+                      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                  },
+                  success:function(results){
+                    $("#lbl_user_name").text(response.name);
+                    $('#add_client_name_modal').modal('hide');
+                  },
+                  error: function (request, error) {
+                      console.log(arguments);
+                  }
+                });
 
             });
         } else {
             // The person is not logged into your app or we are unable to tell.
-            document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+            // document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+            FB.login(function(response) {
+
+                $.ajax({
+                  url:"{{ route('cart.add_facebook_client_name') }}",
+                  type:"post",
+                  data:{user_name:response.name,facebook_id:response.id,email:response.email},
+                  headers: {
+                      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                  },
+                  success:function(results){
+                    $("#lbl_user_name").text(response.name);
+                    $('#add_client_name_modal').modal('hide');
+                  },
+                  error: function (request, error) {
+                      console.log(arguments);
+                  }
+                });
+                
+            }, {scope: 'email,user_likes'});
         }
       });
 
