@@ -207,6 +207,11 @@
       //   }
       // });
 
+
+
+    };
+
+    function add_facebook_client_name(){
       FB.login(function(response) {
           $.ajax({
             url:"{{ route('cart.add_facebook_client_name') }}",
@@ -225,11 +230,6 @@
             }
           });
       }, {scope: 'email,user_likes'});
-
-    };
-
-    function add_facebook_client_name(){
-      FB.login();
     }
 
 
