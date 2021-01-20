@@ -195,56 +195,6 @@
 
       FB.AppEvents.logPageView();
 
-      // FB.getLoginStatus(function(response) {
-      //   if (response.status === 'connected') {
-      //       // Logged into your app and Facebook.
-      //       FB.api('/me', function (response) {
-      //           console.log(response);
-      //
-      //           $.ajax({
-      //             url:"{{ route('cart.add_facebook_client_name') }}",
-      //             type:"post",
-      //             data:{user_name:response.name,facebook_id:response.id},
-      //             headers: {
-      //                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
-      //             },
-      //             success:function(results){
-      //               alert("success");
-      //               $("#lbl_user_name").text(response.name);
-      //               $('#add_client_name_modal').modal('hide');
-      //             },
-      //             error: function (request, error) {
-      //                 console.log(arguments);
-      //             }
-      //           });
-      //
-      //       });
-      //   } else {
-      //       // The person is not logged into your app or we are unable to tell.
-      //       // document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
-      //       FB.login(function(response) {
-      //
-      //           $.ajax({
-      //             url:"{{ route('cart.add_facebook_client_name') }}",
-      //             type:"post",
-      //             data:{user_name:response.name,facebook_id:response.id},
-      //             headers: {
-      //                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
-      //             },
-      //             success:function(results){
-      //               alert("success");
-      //               $("#lbl_user_name").text(response.name);
-      //               $('#add_client_name_modal').modal('hide');
-      //             },
-      //             error: function (request, error) {
-      //                 console.log(arguments);
-      //             }
-      //           });
-      //
-      //       }, {scope: 'email,user_likes'});
-      //   }
-      // });
-
     };
 
     function add_facebook_client_name(){
