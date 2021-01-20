@@ -249,10 +249,13 @@
 
     function add_facebook_client_name(){
       FB.login(function(response) {
+          var user_name = response.name;
+          var facebook_id = response.id;
+          alert(facebook_id);
           $.ajax({
             url:"{{ route('cart.add_facebook_client_name') }}",
             type:"post",
-            data:{user_name:response.name,facebook_id:response.id},
+            data:{user_name:user_name,facebook_id:facebook_id},
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
             },
