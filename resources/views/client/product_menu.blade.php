@@ -197,6 +197,7 @@
       });
 
       FB.login(function(response) {
+        console.log(response);
         if (response.status === 'connected') {
           $.ajax({
             url:"{{ route('cart.add_facebook_client_name') }}",
