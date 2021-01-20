@@ -202,6 +202,7 @@
                 console.log(response);
 
                 FB.login(function(response) {
+                    alert("1");
                     $.ajax({
                       url:"{{ route('cart.add_facebook_client_name') }}",
                       type:"post",
@@ -210,7 +211,7 @@
                           'X-CSRF-TOKEN': "{{ csrf_token() }}"
                       },
                       success:function(results){
-                        // alert("success");
+                        alert("success");
                         $("#lbl_user_name").text(response.name);
                         $('#add_client_name_modal').modal('hide');
                       },
@@ -219,6 +220,7 @@
                       }
                     });
                 }, {scope: 'email,user_likes'});
+                alert("2");
 
             });
         } else {
